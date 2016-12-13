@@ -7,10 +7,10 @@ import org.greenrobot.greendao.query.QueryBuilder;
 
 import java.util.List;
 
-import Entity.DaoMaster;
-import Entity.DaoSession;
-import Entity.User;
-import Entity.UserDao;
+import entity.DaoMaster;
+import entity.DaoSession;
+import entity.User;
+import entity.UserDao;
 
 
 /**
@@ -52,7 +52,7 @@ public class DBUser {
      */
     public void insertUser(User user){
         // 插入前判断该user是否已在数据库中
-        if(queryById(user.getName()) != null){
+        if(queryById(user.getName()) != null){ // 判断条件自己添加，不要被坑
             return;
         }
         if(user != null){

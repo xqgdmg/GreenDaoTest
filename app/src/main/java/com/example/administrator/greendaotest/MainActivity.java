@@ -10,7 +10,7 @@ import android.widget.ListView;
 import java.util.ArrayList;
 import java.util.List;
 
-import Entity.User;
+import entity.User;
 import utils.DBUser;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
@@ -83,14 +83,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 DBUser.getInstance(this).clear();
                 break;
         }
-        update();
+
+        // 显示
+        showList();
 
     }
 
     /**
      * 更新 listview 中显示的数据
      */
-    public void update(){
+    public void showList(){
         List<User> list = DBUser.getInstance(this).queryAllUser();
         datas.clear();// 先清空原来的数据
 

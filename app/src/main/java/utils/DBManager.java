@@ -3,7 +3,7 @@ package utils;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 
-import Entity.DaoMaster;
+import entity.DaoMaster;
 
 /**
  * DB管理工具类 ，提供获取 DB 的方法

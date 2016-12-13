@@ -1,4 +1,4 @@
-package Entity;
+package entity;
 
 import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Generated;
@@ -15,6 +15,7 @@ public class User {
 
     @Unique
     private String name;
+
     private String age;
     /*************************************以下自动生成，get，set，构造方法**************************************************/
     public String getAge() {
