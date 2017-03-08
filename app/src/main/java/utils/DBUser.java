@@ -129,4 +129,26 @@ public class DBUser {
         userDao.insertOrReplace(item);
     }
 
+    /*
+    * 查询年龄，按姓名排序
+    */
+    public List<User> orderByName(String age){
+        List<User> list = userDao.queryBuilder()
+                .where(UserDao.Properties.Age.eq(age))
+                .orderAsc(UserDao.Properties.Name)
+                .list();
+        return list;
+    }
+
+    /*
+    * 查询所有数据，每次查两天数据，offset 可以改
+    */
+    public List<User> limitAndOffset(int offset){
+        QueryBuilder<User> qb = userDao.queryBuilder();
+        qb.limit(2);
+        qb.offset(offset);
+        return qb.list();
+    }
+
+
 }

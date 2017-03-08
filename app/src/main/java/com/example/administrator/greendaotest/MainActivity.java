@@ -2,10 +2,12 @@ package com.example.administrator.greendaotest;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +23,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private List<String> datas = new ArrayList<>();
     private User user;
     private ArrayAdapter<String> adapter;
+    private int offset = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +55,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.btn_delete).setOnClickListener(this);
         findViewById(R.id.btn_update).setOnClickListener(this);
         findViewById(R.id.btn_clear).setOnClickListener(this);
+        findViewById(R.id.btnOrderByName).setOnClickListener(this);
+        findViewById(R.id.btnLimitAndOffset).setOnClickListener(this);
 
     }
 
@@ -72,27 +77,59 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (view.getId()){
             case R.id.btn_insert:
                 DBUser.getInstance(this).insertUser(user);
+                // 显示
+                showAllList();
                 break;
             case R.id.btn_delete:
                 DBUser.getInstance(this).deleteByName(name_et.getText().toString().trim());
+                // 显示
+                showAllList();
                 break;
             case R.id.btn_update:
                 DBUser.getInstance(this).update(user);
+                // 显示
+                showAllList();
                 break;
             case R.id.btn_clear:
                 DBUser.getInstance(this).clear();
+                // 显示
+                showAllList();
+                break;
+            case R.id.btnOrderByName:
+                List<User> userList = DBUser.getInstance(this).orderByName("1");
+                datas.clear();
+                for (int i = 0; i < userList.size(); i++) {
+                    Log.e("TAG","Age=" + userList.get(i).getAge() + "Name=" + userList.get(i).getName());
+                    datas.add("name = " + userList.get(i).getName()+" , age = "+userList.get(i).getAge());
+                }
+                // listview 更新界面
+                adapter.notifyDataSetChanged();
+                break;
+            case R.id.btnLimitAndOffset:
+                List<User> userList1 = DBUser.getInstance(this).limitAndOffset(offset);
+                datas.clear();
+                for (int i = 0; i < userList1.size(); i++) {
+                    Log.e("TAG","Age=" + userList1.get(i).getAge() + "Name=" + userList1.get(i).getName());
+                    datas.add("name = " + userList1.get(i).getName()+" , age = "+userList1.get(i).getAge());
+                }
+
+                if (datas.size() <= 0){
+                    Toast.makeText(this,"没有更多数据了",Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                // listview 更新界面
+                adapter.notifyDataSetChanged();
+
+                offset += 1;
                 break;
         }
-
-        // 显示
-        showList();
 
     }
 
     /**
      * 更新 listview 中显示的数据
      */
-    public void showList(){
+    public void showAllList(){
         List<User> list = DBUser.getInstance(this).queryAllUser();
         datas.clear();// 先清空原来的数据
 
