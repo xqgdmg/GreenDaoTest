@@ -39,8 +39,8 @@ public class UserDao extends AbstractDao<User, Void> {
     public static void createTable(Database db, boolean ifNotExists) {
         String constraint = ifNotExists? "IF NOT EXISTS ": "";
         db.execSQL("CREATE TABLE " + constraint + "\"USER\" (" + //
-                "\"NAME\" TEXT," + // 0: name
-                "\"AGE\" TEXT UNIQUE );"); // 1: age
+                "\"NAME\" TEXT UNIQUE ," + // 0: name
+                "\"AGE\" TEXT);"); // 1: age
     }
 
     /** Drops the underlying database table. */
