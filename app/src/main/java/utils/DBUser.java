@@ -96,7 +96,7 @@ public class DBUser {
     public void deleteByName(String userName){
         QueryBuilder<User> qb = userDao.queryBuilder();
         DeleteQuery<User> dq = qb.where(UserDao.Properties.Name.eq(userName)).buildDelete();
-        dq.executeDeleteWithoutDetachingEntities();// 久的实体可能会存在缓存问题
+        dq.executeDeleteWithoutDetachingEntities();// 旧的实体可能会存在缓存问题
     }
 
     /**

@@ -17,8 +17,8 @@ import utils.DBUser;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private EditText name_et;
-    private EditText age_et;
+    private EditText etName;
+    private EditText etAge;
     private ListView listView;
     private List<String> datas = new ArrayList<>();
     private User user;
@@ -34,16 +34,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public void initView(){
-        name_et = (EditText) findViewById(R.id.et_name);
-        age_et = (EditText) findViewById(R.id.et_age);
+        etName = (EditText) findViewById(R.id.et_name);
+        etAge = (EditText) findViewById(R.id.et_age);
         listView = (ListView) findViewById(R.id.listview);
 
         // 获取表中所有用户
-        List<User> list = DBUser.getInstance(this).queryAllUser();
+        List<User> listUsers = DBUser.getInstance(this).queryAllUser();
 
         // 遍历表中全部数据，添加到集合 datas，这里的集合只是用来显示，显示格式可自定义
-        for(int i = 0; i < list.size(); i++){
-            datas.add("name = " + list.get(i).getName()+" , age = "+list.get(i).getAge());//定义显示方式
+        for(int i = 0; i < listUsers.size(); i++){
+            datas.add("name = " + listUsers.get(i).getName()+" , age = "+listUsers.get(i).getAge());//定义显示方式
         }
 
         // 初始化 listview
@@ -67,8 +67,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View view) {
 
         // 获得输入的内容
-        String name = name_et.getText().toString().trim();
-        String age = age_et.getText().toString().trim();
+        String name = etName.getText().toString().trim();
+        String age = etAge.getText().toString().trim();
 
         // 添加到 bean
         user = new User(name,age);
@@ -81,7 +81,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 showAllList();
                 break;
             case R.id.btn_delete:
-                DBUser.getInstance(this).deleteByName(name_et.getText().toString().trim());
+                DBUser.getInstance(this).deleteByName(etName.getText().toString().trim());
                 // 显示
                 showAllList();
                 break;
