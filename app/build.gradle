@@ -7,14 +7,14 @@ buildscript {
     }
 
     dependencies {
-//        classpath 'com.android.tools.build:gradle:1.5.0'// 这个可写可不写
-        classpath 'org.greenrobot:greendao-gradle-plugin:3.0.0'
+//        classpath 'com.android.tools.build:gradle:1.5.0'// 这个可写可不写，一般都不要去写
+
     }
 }
 
 android {
     compileSdkVersion 23
-    buildToolsVersion "23.0.3"
+    buildToolsVersion "25.0.0"
 
     defaultConfig {
         applicationId "com.example.administrator.mygreendao301"
