@@ -141,7 +141,7 @@ public class DBUser {
     }
 
     /*
-    * 查询所有数据，每次查两天数据，offset 可以改
+    * 查询所有数据，每次查两个数据，offset（数据库中的第几个） 可以改
     */
     public List<User> limitAndOffset(int offset){
         QueryBuilder<User> qb = userDao.queryBuilder();
